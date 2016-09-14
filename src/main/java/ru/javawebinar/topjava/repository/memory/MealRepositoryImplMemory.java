@@ -32,6 +32,10 @@ public class MealRepositoryImplMemory implements MealRepository {
         save(new Meal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510));
     }
 
+    public MealRepositoryImplMemory() {
+        fill();
+    }
+
     @Override
     public Meal get(int id) {
         return meals.get(id);

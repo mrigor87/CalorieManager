@@ -31,11 +31,12 @@ public class MealServlet extends HttpServlet {
         String action=request.getParameter("action");
         if (action==null) {
             LOG.info("forward to mealList get all");
-            List<MealWithExceed> meals = MealsUtil.getFilteredWithExceeded(MealsUtil.meals, LocalTime.MIN, LocalTime.MAX, 2000);
-            request.setAttribute("meals", meals);
-            request.getRequestDispatcher("/mealList.jsp").forward(request, response);
         }else if(action.equals("delete")){
             repository.delete(Integer.parseInt( request.getParameter("id")));
         }
+        List<Meal> meals1 = repository.getAll();
+        List<MealWithExceed> meals = MealsUtil.getFilteredWithExceeded(meals1, LocalTime.MIN, LocalTime.MAX, 2000);
+        request.setAttribute("meals", meals);
+        request.getRequestDispatcher("/mealList.jsp").forward(request, response);
     }
 }
