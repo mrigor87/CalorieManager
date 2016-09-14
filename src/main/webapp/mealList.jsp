@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://topjava.ru/functions" prefix="f" %>
 <html>
 <head>
     <title>Meal List</title>
@@ -14,12 +15,14 @@
 <body>
 <h2><a href="index.html"> Home</a></h2>
 <h1>MealList</h1>
-<p>table</p>
+
 <table border="1">
     <tr>
         <th>Date/Time</th>
         <th>Description</th>
         <th>Calories</th>
+        <th></th>
+        <th></th>
     </tr>
 
 
@@ -33,9 +36,16 @@
 
 <%--        <tr style="color: <%=color%>">--%>
         <tr style="color:${meal.exceed?'red':'green'}">
-            <td>${meal.dateTime}</td>
+            <td>${f:formatLocalDateTime(meal.dateTime,"yyyy-MM-dd HH:mm")}</td>
+<%--            <td>${meal.dateTime}</td>--%>
             <td>${meal.description}</td>
             <td>${meal.calories}</td>
+            <td>
+                <a href="meals?action=edit">edit</a>
+            </td>
+            <td>
+                <a href="meals?action=delete&id=${meal.id}">delete</a>
+            </td>
         </tr>
 
         <%--            <td><%=meal.getDateTime()%></td>
