@@ -14,6 +14,8 @@
 </head>
 <body>
 <h2><a href="index.html"> Home</a></h2>
+<form action=""
+
 <h1>MealList</h1>
 
 <table border="1">

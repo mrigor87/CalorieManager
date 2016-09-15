@@ -5,6 +5,7 @@ import ru.javawebinar.topjava.repository.MealRepository;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +44,9 @@ public class MealRepositoryImplMemory implements MealRepository {
 
     @Override
     public List<Meal> getAll() {
-        return (List) meals.values();
+
+        return
+                new ArrayList<>(meals.values());
     }
 
     @Override
@@ -57,6 +60,7 @@ public class MealRepositoryImplMemory implements MealRepository {
 
     @Override
     public void delete(int id) {
+
         meals.remove(id);
     }
 }
