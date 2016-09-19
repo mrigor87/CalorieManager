@@ -14,7 +14,7 @@
 </head>
 <body>
 <h2><a href="index.html"> Home</a></h2>
-<form action=""
+<a href="meals?action=create">create new</a>
 
 <h1>MealList</h1>
 
@@ -29,7 +29,7 @@
 
 
     <c:forEach items="${meals}" var="meal">
-                <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealWithExceed"></jsp:useBean>
+                <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealWithExceed"/>
         <%-- <%=meal.getDescription%>--%>
         <%--<% String color=meal.isExceed()?"red":"green"; %>--%>
 
@@ -43,7 +43,7 @@
             <td>${meal.description}</td>
             <td>${meal.calories}</td>
             <td>
-                <a href="meals?action=edit">edit</a>
+                <a href="meals?action=edit&id=${meal.id}">edit</a>
             </td>
             <td>
                 <a href="meals?action=delete&id=${meal.id}">delete</a>
