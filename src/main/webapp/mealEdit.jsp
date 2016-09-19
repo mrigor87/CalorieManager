@@ -13,8 +13,8 @@
 <body>
 <a href="index.html">Home</a>
 <h1>Edit / Create</h1>
+<jsp:useBean id="meal" type="ru.javawebinar.topjava.model.Meal" scope="request"/>
 <form method="post" action="meals">
-    <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.Meal" scope="request"/>
     <input type="hidden" value="${meal.id}" name="id">
     <dl>
         <dt>Date-time</dt>
