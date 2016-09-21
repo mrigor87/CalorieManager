@@ -16,6 +16,18 @@
     </style>
 </head>
 <body>
+<form method="get" action="meals">
+    <input type="hidden" value="filter" name="action">
+    <dl>
+        Date From <input type="date" name="dateFrom">
+        Time From <input type="time" name="timeFrom">
+    </dl>
+    <dl>
+        Date To <input type="date" name="dateTo">
+        Time To <input type="time" name="timeTo">
+    </dl>
+    <button type="submit">Go filter</button>
+</form>
 <section>
     <h2><a href="index.html">Home</a></h2>
     <h3>Meal list</h3>

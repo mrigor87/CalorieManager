@@ -2,10 +2,14 @@ package ru.javawebinar.topjava.repository.mock;
 
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.MealWithExceed;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.util.UserUtil;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -22,6 +26,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     private Map<Integer, Map<Integer, Meal>> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
 
+
     {
         // MealsUtil.MEALS.forEach(this::save);
         save(MealsUtil.MEALS.get(0), UserUtil.getUser().getId());
@@ -36,14 +41,13 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     @Override
     public Meal save(Meal meal, int userId) {
         Map<Integer, Meal> meals = repository.get(userId);
-        if (!(meals == null) && meal.isNew()) {
-            return null;
-        }
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
         }
+        else if (meals.get(meal.getId())==null){
+            return null;
+        }
         repository.computeIfAbsent(userId, (User) -> new ConcurrentHashMap<>()).put(meal.getId(), meal);
-//        meals.put(meal.getId(), meal);
         return meal;
     }
 
@@ -76,7 +80,14 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
         } else {
             return Collections.EMPTY_LIST;
         }
-
+    }
+    public Collection<MealWithExceed> getAllfiltered(int userId, LocalDate dateFrom, LocalDate dateTo, LocalTime timeFrom, LocalDateTime timeTo) {
+        Map<Integer, Meal> meals = repository.get(userId);
+        if (!meals.isEmpty()) {
+            return null;
+        } else {
+            return Collections.EMPTY_LIST;
+        }
     }
 }
 
