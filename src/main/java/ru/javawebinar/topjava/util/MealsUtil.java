@@ -15,6 +15,12 @@ import java.util.stream.Collectors;
  * 31.05.2015.
  */
 public class MealsUtil {
+    public static final Comparator<Meal> COMPARATOR=new Comparator<Meal>() {
+        @Override
+        public int compare(Meal o1, Meal o2) {
+            return o2.getDateTime().compareTo(o1.getDateTime());
+        }
+    };
     public static final List<Meal> MEALS = Arrays.asList(
             new Meal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500),
             new Meal(LocalDateTime.of(2015, Month.MAY, 30, 13, 0), "Обед", 1000),

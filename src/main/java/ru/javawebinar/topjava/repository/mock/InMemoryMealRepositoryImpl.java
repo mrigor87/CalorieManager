@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * GKislin
@@ -84,7 +85,9 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
         Map<Integer, Meal> meals = repository.get(userId);
         if (!meals.isEmpty()) {
             return meals.values().stream()
-                    .filter(meal -> TimeUtil.);
+                    .filter(meal -> TimeUtil.isBetween(meal.getDate(),fromDate,toDate))
+
+                    .collect(Collectors.toList());
         } else {
             return Collections.EMPTY_LIST;
         }
