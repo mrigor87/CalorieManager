@@ -20,9 +20,9 @@ public class TimeUtil<T> {
     }
 
 
-/*    public static boolean isBetween(T ld, T startDate, T endDate) {
+    public static<T extends Comparable> boolean isBetween(T ld, T startDate, T endDate) {
         return ld.compareTo(startDate) >= 0 && ld.compareTo(endDate) <= 0;
-    }*/
+    }
 
 
     public static String toString(LocalDateTime ldt) {
