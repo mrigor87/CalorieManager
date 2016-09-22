@@ -75,8 +75,12 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     public Collection<Meal> getAll(int userId) {
         Map<Integer, Meal> meals = repository.get(userId);
         ;
+
+
         if (!meals.isEmpty()) {
-            return  Collections.sort(meals.values(),COMPARATOR);
+            return  meals.values().stream()
+                    .sorted(COMPARATOR)
+                    .collect(Collectors.toList());
         } else {
             return Collections.EMPTY_LIST;
         }
