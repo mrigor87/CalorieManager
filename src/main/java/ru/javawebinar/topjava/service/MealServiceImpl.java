@@ -8,6 +8,7 @@ import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 /**
@@ -35,7 +36,12 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public Collection<MealWithExceed> getAll(int userId) {
-        return MealsUtil.getWithExceeded(repository.getAll(userId),MealsUtil.DEFAULT_CALORIES_PER_DAY);
+    public Collection<Meal> getAll(int userId) {
+        return repository.getAll(userId);
+    }
+
+    @Override
+    public Collection<Meal> getBetween(LocalDate startDate, LocalDate endDate, int userId) {
+        return repository.getBetween(startDate,endDate,userId);
     }
 }

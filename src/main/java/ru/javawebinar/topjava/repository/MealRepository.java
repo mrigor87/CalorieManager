@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.repository;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 /**
@@ -18,4 +19,6 @@ public interface MealRepository {
     Meal get(int id, int userId);
 
     Collection<Meal> getAll(int userId);
+
+    Collection<Meal>getBetween(LocalDate fromDate, LocalDate toDate, int userId);
 }
