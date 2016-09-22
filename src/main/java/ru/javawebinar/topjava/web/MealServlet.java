@@ -93,6 +93,8 @@ public class MealServlet extends HttpServlet {
             LocalTime startTime= TimeUtil.parseToLT(request.getParameter("timeFrom"));
             LocalTime endTime= TimeUtil.parseToLT(request.getParameter("timeTo"));
             Collection<MealWithExceed> meals=controller.getBetween(startDate,endDate,startTime,endTime);
+            request.setAttribute("mealList",meals);
+            request.getRequestDispatcher("/mealList.jsp").forward(request, response);
         }
     }
 
