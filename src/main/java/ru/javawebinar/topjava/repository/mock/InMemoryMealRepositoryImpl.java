@@ -4,15 +4,13 @@ import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
-import ru.javawebinar.topjava.util.TimeUtil;
 import ru.javawebinar.topjava.util.UserUtil;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 /**
  * GKislin
@@ -39,14 +37,13 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     @Override
     public Meal save(Meal meal, int userId) {
         Map<Integer, Meal> meals = repository.get(userId);
-        if (!(meals == null) && meal.isNew()) {
-            return null;
-        }
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
         }
+        else if (meals.get(meal.getId())==null){
+            return null;
+        }
         repository.computeIfAbsent(userId, (User) -> new ConcurrentHashMap<>()).put(meal.getId(), meal);
-//        meals.put(meal.getId(), meal);
         return meal;
     }
 
@@ -74,9 +71,6 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     @Override
     public Collection<Meal> getAll(int userId) {
         Map<Integer, Meal> meals = repository.get(userId);
-        ;
-
-
         if (!meals.isEmpty()) {
             return  meals.values().stream()
                     .sorted(COMPARATOR)
@@ -95,6 +89,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
         } else {
             return Collections.EMPTY_LIST;
         }
+
     }
 }
 

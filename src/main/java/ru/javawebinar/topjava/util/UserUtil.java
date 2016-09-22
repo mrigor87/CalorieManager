@@ -12,7 +12,7 @@ import java.util.List;
 public class UserUtil {
     public static final List<User> USERS = Arrays.asList(
             new User(1,"User","email","password", Role.ROLE_USER),
-            new User(1,"Admin","email","password", Role.ROLE_ADMIN)
+            new User(2,"Admin","email","password", Role.ROLE_ADMIN)
 
 
     );
