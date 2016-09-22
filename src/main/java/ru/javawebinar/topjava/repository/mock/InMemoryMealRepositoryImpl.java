@@ -9,9 +9,7 @@ import ru.javawebinar.topjava.util.UserUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -25,6 +23,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     //          userId        mealId
     private Map<Integer, Map<Integer, Meal>> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
+    private static final Comparator<Meal> COMPARATOR= Comparator.comparing(Meal::getDateTime);
 
     {
         // MealsUtil.MEALS.forEach(this::save);
@@ -75,8 +74,9 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     @Override
     public Collection<Meal> getAll(int userId) {
         Map<Integer, Meal> meals = repository.get(userId);
+        ;
         if (!meals.isEmpty()) {
-            return meals.values();
+            return  Collections.sort(meals.values(),COMPARATOR);
         } else {
             return Collections.EMPTY_LIST;
         }
@@ -86,7 +86,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
         if (!meals.isEmpty()) {
             return meals.values().stream()
                     .filter(meal -> TimeUtil.isBetween(meal.getDate(),fromDate,toDate))
-
+                    .sorted(COMPARATOR)
                     .collect(Collectors.toList());
         } else {
             return Collections.EMPTY_LIST;
