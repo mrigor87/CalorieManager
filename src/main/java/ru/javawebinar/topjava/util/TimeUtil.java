@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  * GKislin
  * 07.01.2015.
  */
-public class TimeUtil<T> {
+public class TimeUtil{
     public static final DateTimeFormatter DATE_TME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
 /*    public static boolean isBetween(LocalTime lt, LocalTime startTime, LocalTime endTime) {
@@ -28,4 +28,12 @@ public class TimeUtil<T> {
     public static String toString(LocalDateTime ldt) {
         return ldt == null ? "" : ldt.format(DATE_TME_FORMATTER);
     }
+
+    public static LocalTime parseToLT(String s){
+        return s.isEmpty()?null:LocalTime.parse(s);
+    }
+    public static LocalDate parseToLD(String s){
+        return s.isEmpty()?null:LocalDate.parse(s);
+    }
+
 }

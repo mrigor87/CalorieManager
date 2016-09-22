@@ -45,12 +45,14 @@ public class MealRestController {
     }
 
     public Collection<MealWithExceed> getBetween(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime) {
-        LocalDate startDateNotNull=startDate!=null?startDate:LocalDate.MIN;
-        LocalDate endDateNotNull=startDate!=null?endDate:LocalDate.MAX;
-        LocalTime startTimeNotNull=startTime!=null?startTime:LocalTime.MIN;
-        LocalTime endTimeNotNull=startTime!=null?endTime:LocalTime.MAX;
-        service.getBetween(startDate, endDate, AuthorizedUser.id());
-        return Collections.EMPTY_LIST;
+        return
+        MealsUtil.getFilteredWithExceeded(
+                service.getBetween(startDate != null ? startDate : LocalDate.MIN,
+                                     endDate != null ?   endDate : LocalDate.MAX, AuthorizedUser.id()),
+                startTime!=null?startTime:LocalTime.MIN,
+                endTime!=null?endTime:LocalTime.MAX,
+                MealsUtil.DEFAULT_CALORIES_PER_DAY
+        );
     }
 
 }

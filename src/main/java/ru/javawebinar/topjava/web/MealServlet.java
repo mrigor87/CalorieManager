@@ -7,11 +7,13 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.MealWithExceed;
 import ru.javawebinar.topjava.repository.mock.InMemoryMealRepositoryImpl;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.service.MealService;
 import ru.javawebinar.topjava.service.MealServiceImpl;
 import ru.javawebinar.topjava.util.MealsUtil;
+import ru.javawebinar.topjava.util.TimeUtil;
 import ru.javawebinar.topjava.web.meal.MealRestController;
 
 import javax.servlet.ServletConfig;
@@ -20,8 +22,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Collection;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * User: gkislin
@@ -82,7 +88,11 @@ public class MealServlet extends HttpServlet {
             request.setAttribute("meal", meal);
             request.getRequestDispatcher("mealEdit.jsp").forward(request, response);
         }else if ("filter".equals(action)){
-            System.out.println("Ehf");
+            LocalDate startDate= TimeUtil.parseToLD(request.getParameter("dateFrom"));
+            LocalDate endDate= TimeUtil.parseToLD(request.getParameter("dateTo"));
+            LocalTime startTime= TimeUtil.parseToLT(request.getParameter("timeFrom"));
+            LocalTime endTime= TimeUtil.parseToLT(request.getParameter("timeTo"));
+            Collection<MealWithExceed> meals=controller.getBetween(startDate,endDate,startTime,endTime);
         }
     }
 
