@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.web.meal;
 import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.MealWithExceed;
 import ru.javawebinar.topjava.service.MealService;
 import ru.javawebinar.topjava.util.exception.ExceptionUtil;
 
@@ -15,7 +16,7 @@ import java.util.Collection;
 @Controller
 public class MealRestController {
     private MealService service;
-    public Collection<Meal>getAll(){
+    public Collection<MealWithExceed>getAll(){
         return service.getAll(AuthorizedUser.id());
     }
     public Meal get(int id){

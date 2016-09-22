@@ -2,7 +2,9 @@ package ru.javawebinar.topjava.service;
 
 import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.MealWithExceed;
 import ru.javawebinar.topjava.repository.MealRepository;
+import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.Collection;
@@ -32,7 +34,7 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public Collection<Meal> getAll(int userId) {
-        return repository.getAll(userId);
+    public Collection<MealWithExceed> getAll(int userId) {
+        return MealsUtil.getWithExceeded(repository.getAll(userId),MealsUtil.DEFAULT_CALORIES_PER_DAY);
     }
 }
