@@ -25,7 +25,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     //          userId        mealId
     private Map<Integer, Map<Integer, Meal>> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
-    private static final Comparator<Meal> COMPARATOR= Comparator.comparing(Meal::getDateTime);
+    private static final Comparator<Meal> COMPARATOR= Comparator.comparing(Meal::getDateTime).reversed();
 
     {
         // MealsUtil.MEALS.forEach(this::save);
