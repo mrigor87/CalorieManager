@@ -35,13 +35,14 @@ public class JdbcMealRepositoryImpl implements MealRepository {
     @Autowired
     public JdbcMealRepositoryImpl(DataSource dataSource) {
         this.insertUser = new SimpleJdbcInsert(dataSource)
-                .withTableName("USERS")
+                .withTableName("MEALS")
                 .usingGeneratedKeyColumns("id");
     }
 
 
     @Override
     public Meal save(Meal meal, int userId) {
+        int update=0;
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", meal.getId())
                 .addValue("description", meal.getDescription())
@@ -54,11 +55,11 @@ public class JdbcMealRepositoryImpl implements MealRepository {
             Number number = insertUser.executeAndReturnKey(map);
             meal.setId(number.intValue());
         }else{
-            namedParameterJdbcTemplate.update(
+            update = namedParameterJdbcTemplate.update(
                     "UPDATE meals SET description=:description, date_time=:date_time, calories=:calories " +
                             "WHERE id=:id  AND user_id=:user_id", map);
         }
-        return meal;
+        return update!=0?meal:null;
     }
 
     @Override

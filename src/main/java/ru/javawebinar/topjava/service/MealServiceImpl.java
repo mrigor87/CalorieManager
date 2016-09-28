@@ -41,7 +41,7 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public Meal update(Meal meal, int userId) {
-        return ExceptionUtil.checkNotFoundWithId(repository.save(meal, userId), meal.getId());
+        return ExceptionUtil.checkNotFoundWithId(repository.save(meal, userId),  meal.getId());
     }
 
     @Override
