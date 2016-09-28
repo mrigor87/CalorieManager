@@ -217,4 +217,10 @@ UNIQUE индекс нужен для обеcпечения уникальнос
 
 ![image](https://cloud.githubusercontent.com/assets/13649199/18831817/8a858f22-83f0-11e6-837e-bf5317b33b3a.png)
 
+### ![error](https://cloud.githubusercontent.com/assets/13649199/13672935/ef09ec1e-e6e7-11e5-9f79-d1641c05cbe6.png) Проверка по HW03 (сначала сделайте самостоятельно!)
 
+- В `MealTestData` еду делайте константами. Не надо `Map` конструкций!
+- SQL  case-insensitive, не надо писать в стиле Camel. В POSTGRES возможно case-sensitive значения в кавычки заключать (но не нужно).
+- ЕЩЕ РАЗ: `InMemory` тесты должны идти на `InMemory` репозитории
+- В `MealTestData` можно использовать дефолтный компаратор
+- Проверьте, что возвращает `JdbcMealRepositoryImpl` при обновлении чужой еды
