@@ -25,4 +25,4 @@ As a result, provide a link to github repository. It should contain the code, RE
 
 P.S.: Make sure everything works with latest version that is on github :)
 
-P.P.S.: Asume that your API will used by a frontend developer to build frontend on top of that.
+P.P.S.: Asume that your API will be used by a frontend developer to build frontend on top of that.
