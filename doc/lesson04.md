@@ -1,5 +1,7 @@
 # Онлайн проекта <a href="https://github.com/JavaWebinar/topjava08">Topjava</a>
 
+### <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFfkxqbVpwZUd5anQ2TXE4bm5HbXhtVmkxMUxFSjhNQ1hXYVVTTTZEMzkzN2s">Материалы занятия (скачать все патчи можно через Download папки patch)</a>
+
 ## Fix
 
 > Убрал дублирующую `id` из `Meal` (если уже исправлено, Apply просто скажет, что некоторые изменения уже есть в коде) 
