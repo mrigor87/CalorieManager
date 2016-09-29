@@ -50,12 +50,12 @@
 ## Занятие 4:
 ### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 2. <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFU005ZzBNZmZnTVU">Методы улучшения качества кода</a>
 
-> Подключите сверху <a href="https://raw.githubusercontent.com/JavaWebinar/topjava08/master/README.md">README.md</a> своего проекта интергацию с:
+> Подключите сверху <a href="https://raw.githubusercontent.com/JavaWebinar/topjava08/master/README.md">README.md</a> своего проекта интергацию с
 - <a href="https://www.codacy.com">Codacy Check code</a>
 - <a href="https://dependencyci.com/">Continuously Test Your Dependencies</a>
 - <a href="https://travis-ci.org/">Сборку и тесты Travis</a>
 
-> Пофиксил в коде <a href="https://www.codacy.com/app/javawebinar/topjava08/dashboard">Codacy Issues</a> (проверку assert в JUnit отключил в настройках)
+> Пофиксил в патче <a href="https://www.codacy.com/app/javawebinar/topjava08/dashboard">Codacy Issues</a> (проверку assert в JUnit отключил в настройках)
 
 > Перенес проверки пердусловий `Assert` из `InMemory` репозиториев в сервисы
 
@@ -73,7 +73,6 @@
 
 -  <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/jdbc.html#jdbc-initializing-datasource-xml">Инициализация базы при старте приложения</a>
 -  <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#integration-testing-annotations-spring">Spring Testing Annotations</a>
--  <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#resources">Абстракция Resource</a>
 
 ### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 4. <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFNTNWV04weDBGSmc">Починка SpringMain/ InMemory*Test: подмена контекста при тестировании</a>
 #### **Apply 5-create-mock-test-ctx.patch**
