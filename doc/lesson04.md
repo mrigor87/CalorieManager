@@ -171,6 +171,7 @@ Hibernate (как любая ORM) реализует маппинг таблиц
 > почему мы в в бине `entityManagerFactory` не указали диалект базы данных?
 
 Он автоматически определяется из `DataSource` драйвера: http://stackoverflow.com/a/39817822/548473
+
 --------------------
 
 ## ![hw](https://cloud.githubusercontent.com/assets/13649199/13672719/09593080-e6e7-11e5-81d1-5cb629c438ca.png) Домашнее задание HW4
