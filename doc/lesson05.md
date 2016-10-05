@@ -1,5 +1,3 @@
-http://blog.jhades.org/how-does-spring-transactional-really-work/
-
 # Онлайн проекта <a href="https://github.com/JavaWebinar/topjava08">Topjava</a>
 
 ### <a href="https://drive.google.com/drive/folders/0B9Ye2auQ_NsFfmctT3oyNW1qaVhDb2p0bGpyTFVlaUJ2VVpOdVgtWF9KTUFBMWFaR2xVYVE">Материалы занятия (скачать все патчи можно через Download папки patch)</a>
@@ -7,8 +5,9 @@ http://blog.jhades.org/how-does-spring-transactional-really-work/
 ### ![error](https://cloud.githubusercontent.com/assets/13649199/13672935/ef09ec1e-e6e7-11e5-9f79-d1641c05cbe6.png) Правки в проекте
 #### Apply 0-fix.patch
 
-> - Заменил в именах userMeal на meal
-> - Починил интеграцию с <a jref="https://travis-ci.org/">Travis CI</a>: на старте создается база topjava (второй вариант- по умолчанию переключиться на hsqldb)
+> - Сделал поля User с доступом private  
+> - Заменил в `JdbcMealRepositoryImpl` userMeal на meal
+> - Починил интеграцию с <a jref="https://travis-ci.org/">Travis CI</a>: на старте создается ДБ topjava и пользователь user без пароля (второй вариант- по умолчанию переключиться на hsqldb)
 
 - <a href="https://docs.travis-ci.com/user/database-setup/#PostgreSQL">Start PostgreSQL in your .travis.yml</a>
 
@@ -51,7 +50,7 @@ http://blog.jhades.org/how-does-spring-transactional-really-work/
  >  - почистить проект `mvn clean` (фаза `clean` не выполняется автоматически, чтобы каждый раз не перекомпилировать весь проект)
 
 - <a href="https://dzone.com/articles/using-spring-profiles-xml">Using Spring Profiles in XML Config</a>
-> Галочка в XML профиле влияет только на интеграцию в IDEA и никак на выполнение кода.
+> Галочка в XML профиле влияет только на отображение в IDEA и никак на выполнение кода.
 
 - Дополнительно: <a href="http://stackoverflow.com/questions/20551681/spring-integration-tests-with-profile">использование `ActiveProfilesResolver` для профиля тестов</a>
  
@@ -78,7 +77,9 @@ http://blog.jhades.org/how-does-spring-transactional-really-work/
 
 ### ![error](https://cloud.githubusercontent.com/assets/13649199/13672935/ef09ec1e-e6e7-11e5-9f79-d1641c05cbe6.png) Правки в Hibernate Entity
 - Сравните запросы в базу в `UserServiceTest.testGetAll()` до и после патча (можете добавить еще ролей).
+
 #### Apply 5-fix-hibernate-issue.patch
+
 - **НЕ ИСПОЛЬЗУЙТЕ  `FetchType.EAGER`**: <a href="http://stackoverflow.com/questions/97197/what-is-the-n1-selects-issue">N+1 selects issue</a>
 - Поправил equals/hashCode в соответствии с их реализацией в <a href="https://github.com/spring-projects/spring-data-jpa/blob/master/src/main/java/org/springframework/data/jpa/domain/AbstractPersistable.java">spring-data-jpa `AbstractPersistable`</a>. 
   - <a href="http://stackoverflow.com/questions/5031614/the-jpa-hashcode-equals-dilemma">The JPA hashCode() / equals() dilemma</a>
@@ -109,7 +110,7 @@ http://blog.jhades.org/how-does-spring-transactional-really-work/
 
 Реализация InMemory является примером как в test делать моки с подменой контекста. Для них сделали отдельный `mock.xml` и запускаемый проект ничего не должен о них знать. У нас учебный проект, в котором 4 реализации репозиториев, в реальном такого не будет.
 
-> А как делать транзакционность для реализации jdbc
+> А как делать транзакционность для реализации jdbc?
 
 Будем делать на следующем уроке
 
@@ -129,7 +130,7 @@ http://blog.jhades.org/how-does-spring-transactional-really-work/
 3. Сделать и протестировать в сервисах методы
   - 3.1  достать по id пользователя вместе с его едой
   - 3.2  достать по id еду вместе с пользователем
-  - 3.3  обращения к DB сделать в одной транзакции ()можно сделать разные варианты). Реализация только в `DataJpa`
+  - Сделать реализацию только для `DataJpa`, обращения к DB сделать в одной транзакции (можно сделать разные варианты). 
 
 <a href="https://en.wikibooks.org/wiki/Java_Persistence/OneToMany">Java Persistence/OneToMany</a>
 
