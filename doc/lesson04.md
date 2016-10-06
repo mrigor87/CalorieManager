@@ -1,4 +1,4 @@
-# Онлайн проекта <a href="https://github.com/JavaWebinar/topjava08">Topjava</a>
+# Онлайн проект <a href="https://github.com/JavaWebinar/topjava08">Topjava</a>
 
 ### <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFfkxqbVpwZUd5anQ2TXE4bm5HbXhtVmkxMUxFSjhNQ1hXYVVTTTZEMzkzN2s">Материалы занятия (скачать все патчи можно через Download папки patch)</a>
 
