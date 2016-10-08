@@ -49,6 +49,8 @@
  >  - поменять `Profiles.ACTIVE_DB = HSQLDB`
  >  - почистить проект `mvn clean` (фаза `clean` не выполняется автоматически, чтобы каждый раз не перекомпилировать весь проект)
 
+ > Вопрос: почему после apply не запустится Tomcat?
+ 
 - <a href="https://dzone.com/articles/using-spring-profiles-xml">Using Spring Profiles in XML Config</a>
 > Галочка в XML профиле влияет только на отображение в IDEA и никак на выполнение кода.
 
