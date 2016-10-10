@@ -1,6 +1,10 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.Stopwatch;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,8 +16,10 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
@@ -26,6 +32,18 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class MealServiceTest {
+    LocalTime startTest;
+    LocalTime endTest;
+
+    @Rule
+    public Stopwatch stopwatch=new Stopwatch() {
+        @Override
+        protected void finished(long nanos, Description description) {
+           // super.finished(nanos, description);
+            System.out.println("*********** method: "+description.getMethodName()+" worked as "+nanos/1000000+" ms");
+        }
+    };
+
 
     @Autowired
     protected MealService service;
