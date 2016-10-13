@@ -36,12 +36,10 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
 
 
 
-/*
-    @Query(name = Meal.DELETE)
+/*    @Query(name = Meal.DELETE)
     @Modifying
     @Transactional
-    Meal save(Meal meal, int userId);
-*/
+    Meal save(@Param("") Meal meal, int userId);*/
 /*// ORDERED dateTime
 Collection<Meal> getAll(int userId);
 

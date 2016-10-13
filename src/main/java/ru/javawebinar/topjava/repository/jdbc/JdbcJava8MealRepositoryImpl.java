@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.repository.jdbc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -14,42 +15,19 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
-
-import static java.lang.System.in;
 
 /**
  * User: gkislin
  * Date: 26.08.2014
  */
-@Profile(Profiles.JDBC)
+@Profile({Profiles.JPA,Profiles.DATAJPA})
 @Repository
-public class JdbcMealRepositoryImpl implements MealRepository {
+public class JdbcJava8MealRepositoryImpl implements MealRepository {
 
-    private static final RowMapper<Meal> ROW_MAPPER =new RowMapper<Meal>() {
-        @Override
-        public Meal mapRow(ResultSet resultSet, int i) throws SQLException {
-            Meal meal=new Meal();
-            meal.setId(resultSet.getInt("id"));
-            meal.setDescription(resultSet.getString("description"));
-            meal.setCalories(resultSet.getInt("calories"));
-            Timestamp t=resultSet.getTimestamp("date_time");
-
-
-            Instant instant = t.toInstant();
-            LocalDateTime ldt = LocalDateTime.ofInstant(t.toInstant(), ZoneId.systemDefault());
-            meal.setDateTime(ldt);
-            return meal;
-        }
-    };
-
+    private static final RowMapper<Meal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Meal.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -60,7 +38,7 @@ public class JdbcMealRepositoryImpl implements MealRepository {
     private SimpleJdbcInsert insertMeal;
 
     @Autowired
-    public JdbcMealRepositoryImpl(DataSource dataSource) {
+    public JdbcJava8MealRepositoryImpl(DataSource dataSource) {
         this.insertMeal = new SimpleJdbcInsert(dataSource)
                 .withTableName("meals")
                 .usingGeneratedKeyColumns("id");
@@ -72,7 +50,7 @@ public class JdbcMealRepositoryImpl implements MealRepository {
                 .addValue("id", meal.getId())
                 .addValue("description", meal.getDescription())
                 .addValue("calories", meal.getCalories())
-                .addValue("date_time", Timestamp.valueOf(meal.getDateTime()))
+                .addValue("date_time", meal.getDateTime())
                 .addValue("user_id", userId);
 
         if (meal.isNew()) {
@@ -111,12 +89,8 @@ public class JdbcMealRepositoryImpl implements MealRepository {
     @Override
     public List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
 
-        Timestamp startDate_stamp = Timestamp.valueOf(startDate);
-        Timestamp endDate_stamp = Timestamp.valueOf(endDate);
-
         return jdbcTemplate.query(
                 "SELECT * FROM meals WHERE user_id=?  AND date_time BETWEEN  ? AND ? ORDER BY date_time DESC",
-                ROW_MAPPER, userId, startDate_stamp, endDate_stamp);
-
+                ROW_MAPPER, userId, startDate, endDate);
     }
 }
