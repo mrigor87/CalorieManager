@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.model;
 
+import org.hibernate.annotations.SortComparator;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 import org.hibernate.validator.constraints.Email;
@@ -8,9 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * User: gkislin
@@ -19,6 +18,7 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
         @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
+        @NamedQuery(name = User.GET_WITH_MEALS, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles  LEFT JOIN FETCH u.meals WHERE u.email=?1"),
         @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email"),
 })
 @Entity
@@ -28,6 +28,7 @@ public class User extends NamedEntity {
     public static final String DELETE = "User.delete";
     public static final String ALL_SORTED = "User.getAllSorted";
     public static final String BY_EMAIL = "User.getByEmail";
+    public static final String GET_WITH_MEALS="User.getWithMeals";
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -55,7 +56,27 @@ public class User extends NamedEntity {
     @Digits(fraction = 0, integer = 4)
     private int caloriesPerDay = MealsUtil.DEFAULT_CALORIES_PER_DAY;
 
+
+
+    @OneToMany
+    @JoinColumn(name="user_id")
+    @OrderBy("dateTime DESC")
+    private List<Meal>meals;
+
     public User() {
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void setMeals(List<Meal> meals) {
+
+        this.meals = meals;
+    }
+
+    public List<Meal> getMeals() {
+        return meals;
     }
 
     public User(User u) {
@@ -131,3 +152,6 @@ public class User extends NamedEntity {
                 ')';
     }
 }
+
+
+

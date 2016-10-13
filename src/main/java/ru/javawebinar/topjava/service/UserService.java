@@ -18,6 +18,10 @@ public interface UserService {
 
     User get(int id) throws NotFoundException;
 
+    default User getWithMeals(int id) throws NotFoundException{
+        throw new UnsupportedOperationException();
+    };
+
     User getByEmail(String email) throws NotFoundException;
 
     List<User> getAll();
@@ -25,4 +29,5 @@ public interface UserService {
     void update(User user);
     
     void evictCache();
+
 }
