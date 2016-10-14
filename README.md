@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/JavaWebinar/topjava08.svg?branch=master)](https://travis-ci.org/mrigor87/topjava08)
 Java Enterprise Online Project 
 ===============================
 
