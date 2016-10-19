@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.javawebinar.topjava.AuthorizedUser;
+import ru.javawebinar.topjava.service.MealService;
 import ru.javawebinar.topjava.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,20 +16,25 @@ import javax.servlet.http.HttpServletRequest;
  * Date: 22.08.2014
  */
 @Controller
+@RequestMapping(value = "/")
 public class RootController {
-    @Autowired
-    private UserService service;
+/*    @Autowired
+    private UserService service;*/
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+
+    @RequestMapping(method = RequestMethod.GET)
     public String root() {
         return "index";
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+/*    @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String users(Model model) {
-        model.addAttribute("users", service.getAll());
-        return "users";
-    }
+       // model.addAttribute("users", service.getAll());
+        return "/users";
+    }*/
+
+
+
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public String setUser(HttpServletRequest request) {
