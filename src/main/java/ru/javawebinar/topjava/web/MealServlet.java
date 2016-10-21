@@ -67,7 +67,7 @@ public class MealServlet extends HttpServlet {
     public String update(@RequestParam(name = "id") Integer id, Model model){
         Meal meal = mealController.get(id);
         model.addAttribute("meal",meal);
-        return "/meal";
+        return "meal";
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
