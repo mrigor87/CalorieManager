@@ -49,25 +49,36 @@ public class MealServlet extends HttpServlet {
     }
 
 
-
     @RequestMapping(method = RequestMethod.GET)
-    public String getAll(Model model){
-      //  List<MealWithExceed> all = mealController.getAll();
-        model.addAttribute("meals",mealController.getAll());
+    public String getAll(Model model) {
+        //  List<MealWithExceed> all = mealController.getAll();
+        model.addAttribute("meals", mealController.getAll());
         return "/meals";
     }
+
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String delete(@RequestParam(name = "id") Integer id, Model model){
+    public String delete(@RequestParam(name = "id") Integer id, Model model) {
         mealController.delete(id);
-        model.addAttribute("meals",mealController.getAll());
+        model.addAttribute("meals", mealController.getAll());
         return "redirect:/meals";
     }
 
-    @RequestMapping(value = "/update",method = RequestMethod.GET)
-    public String update(@RequestParam(name = "id") Integer id, Model model){
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    public String update(@RequestParam(name = "id") Integer id, Model model) {
         Meal meal = mealController.get(id);
-        model.addAttribute("meal",meal);
+        model.addAttribute("meal", meal);
         return "meal";
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String post(HttpServletRequest request) {
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        final Meal meal = new Meal(
+                LocalDateTime.parse(request.getParameter("dateTime")),
+                request.getParameter("description"),
+                Integer.valueOf(request.getParameter("calories")));
+        mealController.update(meal, id);
+        return "redirect:/meals";
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
