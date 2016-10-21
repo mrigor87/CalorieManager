@@ -2,9 +2,16 @@ package ru.javawebinar.topjava.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.to.MealWithExceed;
 import ru.javawebinar.topjava.util.TimeUtil;
 import ru.javawebinar.topjava.web.meal.MealRestController;
 
@@ -18,23 +25,43 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * User: gkislin
  * Date: 19.08.2014
  */
+@RequestMapping(value = "/meals")
+@Controller
 public class MealServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(MealServlet.class);
-
+    @Autowired
     private MealRestController mealController;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+/*        super.init(config);
         WebApplicationContext springContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-        mealController = springContext.getBean(MealRestController.class);
+        mealController = springContext.getBean(MealRestController.class);*/
     }
+
+
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String getAll(Model model){
+      //  List<MealWithExceed> all = mealController.getAll();
+        model.addAttribute("meals",mealController.getAll());
+        return "/meals";
+    }
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String delete(@RequestParam(name = "id") Integer id, Model model){
+        mealController.delete(id);
+        model.addAttribute("meals",mealController.getAll());
+        return "meals";
+    }
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -74,9 +101,9 @@ public class MealServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action == null) {
-            LOG.info("getAll");
+/*            LOG.info("getAll");
             request.setAttribute("meals", mealController.getAll());
-            request.getRequestDispatcher("/meals.jsp").forward(request, response);
+            request.getRequestDispatcher("/meals.jsp").forward(request, response);*/
 
         } else if ("delete".equals(action)) {
             int id = getId(request);

@@ -36,10 +36,5 @@ public class RootController {
 
 
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public String setUser(HttpServletRequest request) {
-        int userId = Integer.valueOf(request.getParameter("userId"));
-        AuthorizedUser.setId(userId);
-        return "redirect:meals";
-    }
+
 }

@@ -26,7 +26,7 @@ import static org.slf4j.LoggerFactory.getLogger;
  */
 @RequestMapping(value = "/users")
 @Controller
-public class UserServlet extends HttpServlet {
+public class UserServlet{
     private static final Logger LOG = getLogger(UserServlet.class);
 
     @Autowired
@@ -45,11 +45,16 @@ public class UserServlet extends HttpServlet {
        // model.addAttribute("users", service.getAll());
         return "/users";
     }*/
+@RequestMapping(method = RequestMethod.POST)
+public String setUser(HttpServletRequest request) {
+    int userId = Integer.valueOf(request.getParameter("userId"));
+    AuthorizedUser.setId(userId);
+    return "redirect:meals";
+}
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String doGet(Model model) throws ServletException, IOException {
-
-
         model.addAttribute("users", adminController.getAll());
         return "/users";
     }
