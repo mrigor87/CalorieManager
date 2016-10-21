@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import ru.javawebinar.topjava.model.Meal;
@@ -59,9 +60,15 @@ public class MealServlet extends HttpServlet {
     public String delete(@RequestParam(name = "id") Integer id, Model model){
         mealController.delete(id);
         model.addAttribute("meals",mealController.getAll());
-        return "meals";
+        return "redirect:/meals";
     }
 
+    @RequestMapping(value = "/update",method = RequestMethod.GET)
+    public String update(@RequestParam(name = "id") Integer id, Model model){
+        Meal meal = mealController.get(id);
+        model.addAttribute("meal",meal);
+        return "/meal";
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
