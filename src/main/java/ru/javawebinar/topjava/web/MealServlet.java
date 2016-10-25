@@ -69,15 +69,31 @@ public class MealServlet extends HttpServlet {
         model.addAttribute("meal", meal);
         return "meal";
     }
+@RequestMapping(value = "/create")
+public String create(Model model){
+    Meal meal = new Meal();
+    model.addAttribute("meal",meal);
+    //Meal meal=mealController.create()
+    return "meal";
+}
+
 
     @RequestMapping(method = RequestMethod.POST)
-    public String post(HttpServletRequest request) {
-        Integer id = Integer.parseInt(request.getParameter("id"));
+    public String post(HttpServletRequest request)
+    {
         final Meal meal = new Meal(
                 LocalDateTime.parse(request.getParameter("dateTime")),
                 request.getParameter("description"),
                 Integer.valueOf(request.getParameter("calories")));
-        mealController.update(meal, id);
+
+        if (!request.getParameter("id").isEmpty()) {
+            Integer id = Integer.parseInt(request.getParameter("id"));
+            mealController.update(meal, id);
+        }else{
+            mealController.create(meal);
+        }
+
+
         return "redirect:/meals";
     }
 
