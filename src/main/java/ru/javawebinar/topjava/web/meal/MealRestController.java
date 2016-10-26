@@ -11,6 +11,7 @@ import ru.javawebinar.topjava.to.MealWithExceed;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -53,12 +54,20 @@ public class MealRestController extends AbstractMealController {
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uri).body(created);
     }
+    
 
-    @GetMapping(value = "/filter/{startdate}/{starttime}/{endDate}/{endTime}")
-    public List<MealWithExceed> getBetween(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+    @GetMapping(value = "/filter")
+    public List<MealWithExceed> getBetween(
+            @RequestParam("startDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @RequestParam("startTime") @DateTimeFormat(iso=DateTimeFormat.ISO.TIME) LocalTime startTime,
+            @RequestParam("endTime") @DateTimeFormat(iso=DateTimeFormat.ISO.TIME) LocalTime endTime
+    )
+/*            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                            @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime startTime,
                                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-                                           @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime endTime) {
-        return super.getBetween(startDate, startTime, endDate, endTime);
+                                           @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime endTime) */
+                                           {
+        return super.getBetween(startDate,startTime,endDate,endTime);
     }
 }

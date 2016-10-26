@@ -22,6 +22,10 @@ import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.web.AbstractControllerTest;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -29,7 +33,7 @@ import java.util.Collections;
  * Created by Igor on 26.10.2016.
  */
 public class MealRestControllerTest extends AbstractControllerTest {
-@Autowired
+    @Autowired
     MealService mealService;
 
     private static final String REST_URL = MealRestController.REST_URL + '/';
@@ -67,67 +71,77 @@ public class MealRestControllerTest extends AbstractControllerTest {
     }
 
 
-
     @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL+MEAL2.getId()))
+        mockMvc.perform(delete(REST_URL + MEAL2.getId()))
                 .andDo(print())
                 .andExpect(status().isOk())
-             //   .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+        //   .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
         ;
-                MATCHER.assertCollectionEquals(mealService.getAll(UserTestData.USER_ID), Arrays.asList(MEAL6,MEAL5,MEAL4,MEAL3,MEAL1));
+        MATCHER.assertCollectionEquals(mealService.getAll(UserTestData.USER_ID), Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL1));
     }
-
 
 
     @Test
     public void update() throws Exception {
-        Meal meal=MealTestData.getUpdated();
-        mockMvc.perform(put(REST_URL+MEAL1.getId())
-               // .andDo(print())
+        Meal meal = MealTestData.getUpdated();
+        mockMvc.perform(put(REST_URL + MEAL1.getId())
+                // .andDo(print())
 
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(meal)))
-        .andDo(print())
+                .andDo(print())
 
                 //.conte`nt
                 .andExpect(status().isOk())
         ;
-        MATCHER.assertCollectionEquals(mealService.getAll(UserTestData.USER_ID), Arrays.asList(MEAL6,MEAL5,MEAL4,MEAL3,MEAL2,meal));
+        MATCHER.assertCollectionEquals(mealService.getAll(UserTestData.USER_ID), Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, meal));
     }
 
 
-/*    @Test
-    public void testCreate() throws Exception {
-        User expected = new User(null, "New", "new@gmail.com", "newPass", Role.ROLE_USER, Role.ROLE_ADMIN);
-        ResultActions action = mockMvc.perform(post(REST_URL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(expected))).andExpect(status().isCreated());
 
-        User returned = MATCHER.fromJsonAction(action);
-        expected.setId(returned.getId());
-
-        MATCHER.assertEquals(expected, returned);
-        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, expected, USER), userService.getAll());
-    }*/
-/*Meal updated = getUpdated();
-    service.update(updated, USER_ID);
-    MATCHER.assertEquals(updated, service.get(MEAL1_ID, USER_ID));*/
 
     @Test
     public void testCreateWithLocation() throws Exception {
-        Meal expected=MealTestData.getCreated();
+        Meal expected = MealTestData.getCreated();
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected))).andExpect(status().isCreated()).andDo(print());
-        Meal returned=MATCHER.fromJsonAction(action);
+        Meal returned = MATCHER.fromJsonAction(action);
+        expected.setId(returned.getId());
         MATCHER.assertEquals(expected, returned);
 
-      //  MATCHER.assertEquals(expected, mealService.get(MEAL1_ID, USER_ID));
     }
 
+/*    MATCHER.assertCollectionEquals(Arrays.asList(MEAL3, MEAL2, MEAL1),
+            service.getBetweenDates(LocalDate.of(2015, Month.MAY, 30),
+                                    LocalDate.of(2015, Month.MAY, 30), USER_ID));*/
+
+/*    mockMvc.perform(get(REST_URL + "by?email=" + USER.getEmail()))*/
     @Test
-    public void getBetween() throws Exception {
+    public void testGetBetween() throws Exception {
+        LocalDate startDate=LocalDate.of(2015, Month.MAY, 30);
+        LocalDate endDate=LocalDate.of(2015, Month.MAY, 30);
+        LocalTime startTime=LocalTime.MIN;
+        LocalTime endTime=LocalTime.MAX;
+        String newURL=REST_URL+"filter?" +
+                "startDate="+startDate.toString()+
+                "&startTime="+startTime+
+                "&endDate="+endDate+
+                "&endTime="+endTime;
+
+        mockMvc.perform(get(newURL))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(MATCHER_WITH_EXCEED.contentListMatcher(
+                        MealsUtil.createWithExceed(MEAL3, false),
+                        MealsUtil.createWithExceed(MEAL2, false),
+                        MealsUtil.createWithExceed(MEAL1, false)
+                ));
+
+
+        ;
 
     }
 
