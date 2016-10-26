@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.web.user;
 
 import org.junit.Test;
+import ru.javawebinar.topjava.MealTestData;
 import ru.javawebinar.topjava.web.AbstractControllerTest;
 
 import static org.hamcrest.Matchers.*;
@@ -30,5 +31,32 @@ public class RootControllerTest extends AbstractControllerTest {
                                 hasProperty("name", is(USER.getName()))
                         )
                 )));
+    }
+
+    /*    ResourceControllerTest для style.css (status и ContentType)*/
+    @Test
+    public void testResourses() throws Exception {
+        mockMvc.perform(get("/resources/css/style.css"))
+//                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/css"))
+        ;
+    }
+
+    @Test
+    public void testMeals() throws Exception {
+        mockMvc.perform(get("/meals"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("meals"))
+                .andExpect(forwardedUrl("/WEB-INF/jsp/meals.jsp"))
+                .andExpect(model().attribute("meals", hasSize(6)))
+                .andExpect(model().attribute("meals", hasItem(
+                        allOf(
+                                hasProperty("id", is(MealTestData.MEAL1.getId()))
+                        ))
+                ));
+        ;
+
     }
 }
