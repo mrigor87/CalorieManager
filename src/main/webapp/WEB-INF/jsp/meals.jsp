@@ -13,7 +13,7 @@
             <section>
                 <h3><fmt:message key="meals.title"/></h3>
 
-                <form method="post" action="meals/filter">
+                <form method="post" action="meals/filter" id="filter">
                     <dl>
                         <dt><fmt:message key="meals.startDate"/>:</dt>
                         <dd><input type="date" name="startDate" value="${param.startDate}"></dd>
@@ -127,6 +127,22 @@
 <script type="text/javascript">
     var ajaxUrl = 'ajax/meals/';
     var datatableApi;
+    $('#filter').submit(function () {
+        //событие фильтрации вызвано
+    $.post({
+        url:ajaxUrl+'/filter',
+        data:$('#filter').serialize(),
+        success:function (data) {
+            datatableApi.fnClearTable();
+            $.each(data, function (key, item) {
+                datatableApi.fnAddData(item);
+            });
+            datatableApi.fnDraw();
+        }
+    }
+
+    )
+    });
 
     // $(document).ready(function () {
     $(function () {
