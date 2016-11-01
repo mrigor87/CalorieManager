@@ -134,11 +134,9 @@
                     url: ajaxUrl + '/filter',
                     data: $('#filter').serialize(),
                     success: function (data) {
-                        datatableApi.fnClearTable();
-                        $.each(data, function (key, item) {
-                            datatableApi.fnAddData(item);
-                        });
-                        datatableApi.fnDraw();
+                        datatableApi.clear();
+                        datatableApi.rows.add(data);
+                        datatableApi.draw();//draw()
                     }
                 }
         )
@@ -147,7 +145,7 @@
 
     // $(document).ready(function () {
     $(function () {
-        datatableApi = $('#datatable').dataTable({
+        datatableApi = $('#datatable').DataTable({
             "bPaginate": false,
             "bInfo": false,
             "aoColumns": [
