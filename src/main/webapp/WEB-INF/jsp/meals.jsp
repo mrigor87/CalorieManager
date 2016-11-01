@@ -13,7 +13,7 @@
             <section>
                 <h3><fmt:message key="meals.title"/></h3>
 
-                <form method="post" action="meals/filter" id="filter">
+                <form method="post" action="ajax/meals/filter" id="filter">
                     <dl>
                         <dt><fmt:message key="meals.startDate"/>:</dt>
                         <dd><input type="date" name="startDate" value="${param.startDate}"></dd>
