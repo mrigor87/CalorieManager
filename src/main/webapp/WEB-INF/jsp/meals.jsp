@@ -86,7 +86,8 @@
                         <label for="dateTime" class="control-label col-xs-3">Name</label>
 
                         <div class="col-xs-9">
-                            <input type="datetime-local" class="form-control" id="dateTime" name="dateTime" placeholder="">
+                            <input type="datetime-local" class="form-control" id="dateTime" name="dateTime"
+                                   placeholder="">
                         </div>
                     </div>
 
@@ -129,19 +130,19 @@
     var datatableApi;
     $('#filter').submit(function () {
         //событие фильтрации вызвано
-    $.post({
-        url:ajaxUrl+'/filter',
-        data:$('#filter').serialize(),
-        success:function (data) {
-            datatableApi.fnClearTable();
-            $.each(data, function (key, item) {
-                datatableApi.fnAddData(item);
-            });
-            datatableApi.fnDraw();
-        }
-    }
-
-    )
+        $.post({
+                    url: ajaxUrl + '/filter',
+                    data: $('#filter').serialize(),
+                    success: function (data) {
+                        datatableApi.fnClearTable();
+                        $.each(data, function (key, item) {
+                            datatableApi.fnAddData(item);
+                        });
+                        datatableApi.fnDraw();
+                    }
+                }
+        )
+    return false;
     });
 
     // $(document).ready(function () {
