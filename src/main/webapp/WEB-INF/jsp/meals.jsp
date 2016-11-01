@@ -13,22 +13,22 @@
             <section>
                 <h3><fmt:message key="meals.title"/></h3>
 
-                <form method="post" action="meals/filter">
+                <form method="post" action="ajax/meals/filter">
                     <dl>
                         <dt><fmt:message key="meals.startDate"/>:</dt>
-                        <dd><input type="date" name="startDate" value="${param.startDate}"></dd>
+                        <dd><input type="date" name="startDate" value="${param.startDate}" id="startDate"></dd>
                     </dl>
                     <dl>
                         <dt><fmt:message key="meals.endDate"/>:</dt>
-                        <dd><input type="date" name="endDate" value="${param.endDate}"></dd>
+                        <dd><input type="date" name="endDate" value="${param.endDate}" id="endDate"></dd>
                     </dl>
                     <dl>
                         <dt><fmt:message key="meals.startTime"/>:</dt>
-                        <dd><input type="time" name="startTime" value="${param.startTime}"></dd>
+                        <dd><input type="time" name="startTime" value="${param.startTime} " id="startTime" ></dd>
                     </dl>
                     <dl>
                         <dt><fmt:message key="meals.endTime"/>:</dt>
-                        <dd><input type="time" name="endTime" value="${param.endTime}"></dd>
+                        <dd><input type="time" name="endTime" value="${param.endTime}" id="endTime"></dd>
                     </dl>
                     <button type="submit"><fmt:message key="meals.filter"/></button>
                 </form>

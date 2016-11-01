@@ -11,6 +11,7 @@ import ru.javawebinar.topjava.service.UserService;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * User: gkislin
@@ -43,7 +44,7 @@ public class RootController {
     }
 
     @RequestMapping(value = "/meals", method = RequestMethod.GET)
-    public String meals(Model model) {
+    public String meals(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute("meals",
                 MealsUtil.getWithExceeded(mealService.getAll(AuthorizedUser.id()), AuthorizedUser.getCaloriesPerDay()));
         return "meals";
