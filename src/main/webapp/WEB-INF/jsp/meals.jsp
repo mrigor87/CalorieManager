@@ -7,8 +7,18 @@
 <jsp:include page="fragments/headTag.jsp"/>
 <link rel="stylesheet" href="webjars/datatables/1.10.12/css/dataTables.bootstrap.min.css">
 
+<link rel="stylesheet" type="text/css" href="webjars/datetimepicker/2.4.7/jquery.datetimepicker.css"/>
+<script src="webjars/2.24/jquery.js"></script>
+<script src="webjars/datetimepicker/2.4.7/build/jquery.datetimepicker.full.min.js"></script>
 <body>
+
 <jsp:include page="fragments/bodyHeader.jsp"/>
+<%--<p>11111111111111111111111111111111111111111111</p>
+<p>11111111111111111111111111111111111111111111</p>
+<p>11111111111111111111111111111111111111111111</p>
+<p>11111111111111111111111111111111111111111111</p>
+<p>11111111111111111111111111111111111111111111</p>
+<input class="datetime" id="_datetimepicker" type="text" value="2014/03/15 05:06">--%>
 
 <div class="jumbotron">
     <div class="container">
@@ -98,7 +108,8 @@
                         <label for="dateTime" class="control-label col-xs-3"><fmt:message key="meals.dateTime"/></label>
 
                         <div class="col-xs-9">
-                            <input type="datetime-local" class="form-control" id="dateTime"
+                            <%--<input id="datetimepicker" type="text" name="dateTime" id="dateTime">--%>
+                            <input type="text" class="datetimepicker" id="dateTime"
                                    name="dateTime" placeholder="<fmt:message key="meals.dateTime"/>">
                         </div>
                     </div>
@@ -130,7 +141,11 @@
     </div>
 </div>
 </body>
+
+
+
 <script type="text/javascript">
+   // $.('#_datetimepicker').datetimepicker();
     var i18n = [];
     <c:forEach var='key' items='<%=new String[]{"common.update","common.delete","common.deleted","common.saved","common.disabled","common.failed"}%>'>
     i18n['${key}'] = '<fmt:message key="${key}"/>';
@@ -142,6 +157,13 @@
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+<%--<script type="text/javascript" src="webjars/jquery/2.2.4/jquery.js"></script>--%>
+<script type="text/javascript" src="webjars/datetimepicker/2.4.7/build/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript" src="resources/js/mealDatatables.js"></script>
+<script type="text/javascript">
+    jQuery('.datetimepicker').datetimepicker({
+        format:'Y-m-d H:i'
+    });
+</script>
 </html>
