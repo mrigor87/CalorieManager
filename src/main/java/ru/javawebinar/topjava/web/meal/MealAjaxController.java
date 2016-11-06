@@ -29,6 +29,11 @@ public class MealAjaxController extends AbstractMealController {
         super.delete(id);
     }
 
+    @GetMapping(value = "/{id}")
+    public Meal get(@PathVariable("id") int id) {
+        return super.get(id);
+    };
+
     @PostMapping
     public void updateOrCreate(@RequestParam("id") Integer id,
                                @RequestParam("dateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime,
