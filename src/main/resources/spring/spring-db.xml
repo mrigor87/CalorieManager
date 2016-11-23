@@ -78,7 +78,7 @@
               p:username="#{ @dbUrl.getUserInfo().split(':')[0] }"
               p:password="#{ @dbUrl.getUserInfo().split(':')[1] }"
               p:driverClassName="org.postgresql.Driver"
-              p:validationQuery="SELECT 1"
+              p:validationQuery="SELECT 1 FROM user"
               p:logValidationErrors="true"
               p:maxActive="10"
               p:minIdle="2"
