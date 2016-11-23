@@ -46,16 +46,13 @@ public class HerokuRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @Ignore
     public void testDelete() throws Exception {
         mockMvc.perform(delete(REST_URL + USER_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().is5xxServerError());
     }
-
     @Test
-    @Ignore
     public void testUpdate() throws Exception {
         mockMvc.perform(put(REST_URL + USER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
