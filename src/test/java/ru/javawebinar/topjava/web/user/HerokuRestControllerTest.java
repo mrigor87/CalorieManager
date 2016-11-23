@@ -22,7 +22,8 @@ import static ru.javawebinar.topjava.TestUtil.userHttpBasic;
 import static ru.javawebinar.topjava.UserTestData.*;
 
 @ActiveProfiles({HEROKU, DB_IMPLEMENTATION})
-public class HerokuRestControllerTest extends AbstractControllerTest {
+abstract public class HerokuRestControllerTest extends AbstractControllerTest {
+
 
     private static final String REST_URL = AdminRestController.REST_URL + '/';
 
