@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.web.user;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.ClassPathResource;
@@ -22,7 +23,7 @@ import static ru.javawebinar.topjava.TestUtil.userHttpBasic;
 import static ru.javawebinar.topjava.UserTestData.*;
 
 @ActiveProfiles({HEROKU, DB_IMPLEMENTATION})
-abstract public class HerokuRestControllerTest extends AbstractControllerTest {
+public class HerokuRestControllerTest extends AbstractControllerTest {
 
 
     private static final String REST_URL = AdminRestController.REST_URL + '/';
@@ -45,6 +46,7 @@ abstract public class HerokuRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testDelete() throws Exception {
         mockMvc.perform(delete(REST_URL + USER_ID)
                 .with(userHttpBasic(ADMIN)))
@@ -53,6 +55,7 @@ abstract public class HerokuRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testUpdate() throws Exception {
         mockMvc.perform(put(REST_URL + USER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
