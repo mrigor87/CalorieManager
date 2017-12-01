@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/mrigor87/CalorieManager.svg?branch=master)](https://travis-ci.org/mrigor87/CalorieManager)
 
-https://travis-ci.org/mrigor87/CalorieManager.svg?branch=master
+
 Java Enterprise Online Project 
 ===============================
 
